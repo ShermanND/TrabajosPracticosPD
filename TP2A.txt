@@ -1,0 +1,142 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TP2A
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("TP1A, Figuras Geometricas\n");
+            var triangulos = new triangulos();            
+            Console.WriteLine("El area del triangulo es " + triangulos.calcularArea());
+            Console.WriteLine("El perimetro del triangulo es " + triangulos.calcularPerimetro());
+            Console.WriteLine("Presione tecla cualquiera para continuar con los circulos.");
+            Console.ReadKey();
+            var circulos = new circulos();
+            Console.WriteLine("\nEl area del circulo es " + circulos.calcularArea());
+            Console.WriteLine("El perimetro del circulo es " + circulos.calcularPerimetro());
+            Console.WriteLine("Presione tecla cualquiera para continuar con los cuadrilateros.");
+            Console.ReadKey();
+            var rectangulos = new rectangulos();
+            Console.WriteLine("\nEl area del cuadrado es " + rectangulos.calcularArea());
+            Console.WriteLine("El perimetro del rectangulo es " + rectangulos.calcularPerimetro());
+            Console.WriteLine("" + rectangulos.calcularPerimetro());
+            Console.WriteLine("Presione tecla cualquiera para cerrar.");
+            Console.ReadKey();
+            Environment.Exit(0);
+        }
+
+    }
+    public interface calculos
+    {
+        Double calcularArea();
+        Double calcularPerimetro();
+    }
+
+
+    public class triangulos : calculos
+    {
+
+        Double valorbase = 0;
+        Double valoraltura = 0;
+        Double valorLado1 = 0;
+        Double valorLado2 = 0;
+        Double valorLado3 = 0;
+
+
+        public triangulos()
+        {
+            Console.WriteLine("\nIngrese el lado 1 del triangulo");
+            Double l1 = double.Parse(Console.ReadLine());
+            Console.WriteLine("Ingrese el lado 2 del triangulo");
+            Double l2 = double.Parse(Console.ReadLine());
+            Console.WriteLine("Ingrese el lado 3 del triangulo");
+            Double l3 = double.Parse(Console.ReadLine());
+            Console.WriteLine("Ingrese el valor de la Base");
+            Double vBase = double.Parse(Console.ReadLine());
+            Console.WriteLine("Ingrese el valor de la Altura");
+            Double vAltura = double.Parse(Console.ReadLine());
+            this.valorbase = vBase;
+            this.valoraltura = vAltura;
+            this.valorLado1 = l1;
+            this.valorLado2 = l2;
+            this.valorLado3 = l3;
+        }
+
+        public Double calcularArea()
+        {
+            return (this.valorbase * this.valoraltura) / 2;
+        }
+
+        public Double calcularPerimetro()
+        {
+
+            return this.valorLado1 + this.valorLado2 + this.valorLado3;
+        }
+
+
+    }
+
+    public class circulos : calculos
+    {
+        Double valorRadio = 0;
+        Double valorPi = Math.PI;
+
+        public circulos()
+        {
+            Console.WriteLine("\nIngrese el radio del circulo");
+            Double valorRadio = double.Parse(Console.ReadLine());
+            this.valorRadio = valorRadio;
+        }
+
+
+        public Double calcularArea()
+        {
+            return this.valorPi * (this.valorRadio * this.valorRadio);
+        }
+        public Double calcularPerimetro()
+        {
+            return ((2 * this.valorPi) * this.valorRadio);
+        }
+    }
+
+    public class rectangulos : calculos
+    {
+        Double valorbase = 0;
+        Double valoraltura = 0;
+
+
+        public rectangulos()
+        {
+            Console.WriteLine("\nIngrese el valor de la Base");
+            Double vBase = double.Parse(Console.ReadLine());
+            Console.WriteLine("Ingrese el valor de la Altura");
+            Double vAltura = double.Parse(Console.ReadLine());
+            this.valorbase = vBase;
+            this.valoraltura = vAltura;
+        }
+
+        public Double calcularArea()
+        {
+            return ((this.valorbase * this.valoraltura) / 2);
+        }
+
+        public String calcularPerimetro()
+        {
+            Double resultP = ((this.valoraltura + this.valorbase) * 2);
+            String resultado2 = resultP.ToString();
+            String resultado1 = "El perimetro del cuadrado es ";
+            String resultado3 = resultado1 + resultado2;
+            return resultado3;
+        }
+
+        double calculos.calcularPerimetro()
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

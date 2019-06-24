@@ -1,0 +1,112 @@
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AlumnosDBSolucionA
+{
+
+    class AlumnosDB : DbContext
+    {        
+        public DbSet<Alumno> Alumnos{ get; set; }
+        public DbSet<Carreras> Carreras { get; set; }
+        public DbSet<Notas> Notas { get; set; }
+    }
+
+    internal class Program
+    {   
+        private static void Main(string[] args)
+        {
+            using (var ctx = new AlumnosDB())
+            {
+
+                var alumno7 = new Notas() { NombreMateria = "Derecho Romano", Cuatrimestre = 1, Anio = 2018, Nota = 8, Fecha = "30 Marzo 2018", Tipo = "Primer Parcial" };
+                var alumno8 = new Notas() { NombreMateria = "Historia del arte", Cuatrimestre = 2, Anio = 2016, Nota = 6, Fecha = "18 Octubre 2016", Tipo = "Trabajo Practico" };
+                var alumno9 = new Notas() { NombreMateria = "Anatomia", Cuatrimestre = 3, Anio = 2018, Nota = 10, Fecha = "18 Diciembre 2018", Tipo = "Final" };
+
+                var alumno2 = new Carreras() { NombreCarrera = "Derecho" };
+                var alumno6 = new Carreras() { NombreCarrera = "Historia" };
+                var alumno4 = new Carreras() { NombreCarrera = "Medicina" };
+
+                var alumno = new Alumno() { Nombre = "Hugo", CarrerasId= 1 };
+                var alumno3 = new Alumno() { Nombre = "Paco", CarrerasId = 2 };
+                var alumno5 = new Alumno() { Nombre = "Luis", CarrerasId = 3 };
+
+                ctx.Notas.Add(alumno7);
+                ctx.Notas.Add(alumno8);
+                ctx.Notas.Add(alumno9);
+                ctx.SaveChanges();
+                ctx.Carreras.Add(alumno2);
+                ctx.Carreras.Add(alumno6);
+                ctx.Carreras.Add(alumno4);
+                ctx.SaveChanges();
+                ctx.Alumnos.Add(alumno);
+                ctx.Alumnos.Add(alumno3);
+                ctx.Alumnos.Add(alumno5);
+                ctx.SaveChanges();
+
+                var LosAlumnos = ctx.Alumnos.ToList();
+                var LasCarreras = ctx.Carreras.ToList();
+                var LasNotas = ctx.Notas.ToList();
+
+                foreach (var alumns in LosAlumnos)
+                {
+                    String texto= alumns.Id + " - " + alumns.Nombre +"\n";
+
+                    foreach (var carrers in LasCarreras)
+                    {
+                        if (carrers.Id == alumns.Id)
+                        {
+                            String texto2 = texto+ "Carrera: " + carrers.NombreCarrera +"\n";
+                            foreach (var noters in LasNotas)
+                            {
+                                if (noters.Id == alumns.Id)
+                                {
+                                    String texto3 = texto2 + "Materia: " + noters.NombreMateria + "\nAño: " + noters.Anio + " - Cuatrimestre: " + noters.Cuatrimestre + "\nTipo examen: " + noters.Tipo + " - Fecha Examen: "+noters.Fecha + " - Nota: " + noters.Nota + "\n";
+                                    Console.WriteLine(texto3);
+                                   
+                                }
+                            }
+                        }
+                        
+
+                    }
+
+
+                }
+                Console.WriteLine("Presione una tecla para cerrar");
+                Console.ReadKey();
+            }            
+        }
+    }
+    public class Alumno
+    {
+        public String Nombre { get; set; }
+        public int Id { get; set; }
+        public int CarrerasId { get; set; }
+        public Carreras Carreras { get; set; }
+        public Notas Notas { get; set; }
+}
+    public class Carreras
+    {
+        public String NombreCarrera { get; set; }
+        public int Id { get; set; }
+    }
+
+    public class Notas
+    {
+        public String NombreMateria { get; set; }
+        public int  Cuatrimestre { get; set; }
+        public int Anio { get; set; }
+        public int Nota { get; set; }
+        public String Fecha { get; set; }
+        public String Tipo { get; set; }
+        public int Id { get; set; }
+
+    }
+}
+//clase carreras
+//agregar dbst carreras a dbcontext
+//borrar base de datos para volverla a crear

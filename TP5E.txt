@@ -1,0 +1,151 @@
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AlumnosDBSolucionE
+{
+
+    class AlumnosDBNotaPromedio : DbContext
+    {        
+        public DbSet<Alumno> Alumnos{ get; set; }
+        public DbSet<Carreras> Carreras { get; set; }
+        public DbSet<Notas> Notas { get; set; }
+        public DbSet<Contadores> Contadores { get; set; }
+    }
+
+    internal class Program
+    {   
+        private static void Main(string[] args)
+        {
+            int cantidad = 0;
+            int sumanotas = 0;
+            double Prom = 0;
+            using (var ctx = new AlumnosDBNotaPromedio())
+            {
+
+                var alumno7 = new Notas() { NombreMateria = "Derecho Romano", Cuatrimestre = 1, Anio = 2018, Nota = 8, Fecha = "30 Marzo 2018", Tipo = "Primer Parcial" };
+                var alumno8 = new Notas() { NombreMateria = "Historia del Arte", Cuatrimestre = 2, Anio = 2016, Nota = 6, Fecha = "18 Octubre 2016", Tipo = "TP" };
+                var alumno9 = new Notas() { NombreMateria = "Anatomia", Cuatrimestre = 3, Anio = 2018, Nota = 10, Fecha = "18 Diciembre 2018", Tipo = "Final" };
+                var alumno10 = new Notas() { NombreMateria = "Derecho Romano", Cuatrimestre = 5, Anio = 2015, Nota = 8, Fecha = "12 Abril 2015", Tipo = "TP" };
+                var alumno11 = new Notas() { NombreMateria = "Historia del Arte", Cuatrimestre = 1, Anio = 2019, Nota = 2, Fecha = "02 Enero 2019", Tipo = "TP" };
+                var alumno12 = new Notas() { NombreMateria = "Historia del Arte", Cuatrimestre = 1, Anio = 2018, Nota = 10, Fecha = "18 Diciembre 2018", Tipo = "Final" };
+
+
+                var alumno2 = new Carreras() { NombreCarrera = "Derecho" };
+                var alumno6 = new Carreras() { NombreCarrera = "Historia" };
+                var alumno4 = new Carreras() { NombreCarrera = "Medicina" };
+                var alumno13 = new Carreras() { NombreCarrera = "Derecho" };
+                var alumno14 = new Carreras() { NombreCarrera = "Historia" };
+                var alumno15 = new Carreras() { NombreCarrera = "Historia" };
+
+                var alumno = new Alumno() { Nombre = "ZHugo", CarrerasId= 1 };
+                var alumno3 = new Alumno() { Nombre = "LPaco", CarrerasId = 2 };
+                var alumno5 = new Alumno() { Nombre = "Auis", CarrerasId = 3 };
+
+                var alumno16 = new Alumno() { Nombre = "BEsteban", CarrerasId = 4 };
+                var alumno17 = new Alumno() { Nombre = "MRaul", CarrerasId = 5 };
+                var alumno18 = new Alumno() { Nombre = "WArturo", CarrerasId = 6 };
+
+                ctx.Notas.Add(alumno7);
+                ctx.Notas.Add(alumno8);
+                ctx.Notas.Add(alumno9);
+                ctx.Notas.Add(alumno10);
+                ctx.Notas.Add(alumno11);
+                ctx.Notas.Add(alumno12);
+                ctx.SaveChanges();                
+                ctx.Carreras.Add(alumno2);
+                ctx.Carreras.Add(alumno6);
+                ctx.Carreras.Add(alumno4);
+                ctx.Carreras.Add(alumno13);
+                ctx.Carreras.Add(alumno14);
+                ctx.Carreras.Add(alumno15);
+                ctx.SaveChanges();
+                ctx.Alumnos.Add(alumno);
+                ctx.Alumnos.Add(alumno3);
+                ctx.Alumnos.Add(alumno5);
+                ctx.Alumnos.Add(alumno16);
+                ctx.Alumnos.Add(alumno17);
+                ctx.Alumnos.Add(alumno18);
+                ctx.SaveChanges();
+                
+                var LosAlumnos = ctx.Alumnos.ToList();
+                var LasCarreras = ctx.Carreras.ToList();
+                var LasNotas = ctx.Notas.ToList();
+                String NombreMateria = "Historia del Arte";
+                
+                foreach (var noters in LasNotas)
+                {                    
+                     if (noters.NombreMateria.Equals(NombreMateria))
+                     {                        
+                        cantidad ++;
+                        sumanotas = +noters.Nota;
+                        Prom = noters.PromedioNotas(sumanotas, cantidad);
+                        String texto1 = "Existen " + cantidad + " registros para la matera " + NombreMateria + "\nLa nota promedio es: " + Prom;
+                        Contadores Resultado = new Contadores { Resultado = texto1};
+                        var all = from c in ctx.Contadores select c;
+                        ctx.Contadores.RemoveRange(all);
+                        ctx.Contadores.Add(Resultado);
+                        ctx.SaveChanges();
+                    }
+                    
+                }
+
+                
+                var ElResultado = ctx.Contadores.ToArray();
+                foreach (var results in ElResultado)
+                {
+                    Console.WriteLine(results.Resultado);
+                }
+
+                Console.WriteLine("Presione una tecla para cerrar");
+                Console.ReadKey();
+
+            }
+        }
+    }
+
+    public static class LasNotasExtensionMethods
+    {
+        public static double PromedioNotas(this Notas notas,int nota, int cantidad)
+        {
+            return nota/cantidad;
+        }
+    }
+
+    public class Alumno
+    {
+        public String Nombre { get; set; }
+        public int Id { get; set; }
+        public int CarrerasId { get; set; }
+        public Carreras Carreras { get; set; }
+        public Notas Notas { get; set; }
+}
+    public class Carreras
+    {
+        public String NombreCarrera { get; set; }
+        public int Id { get; set; }
+    }
+
+    public class Notas
+    {
+        public String NombreMateria { get; set; }
+        public int  Cuatrimestre { get; set; }
+        public int Anio { get; set; }
+        public int Nota { get; set; }
+        public String Fecha { get; set; }
+        public String Tipo { get; set; }
+        public int Id { get; set; }
+
+    }
+
+    public class Contadores
+    {
+        public String Resultado { get; set; }
+        public int Id { get; set; }
+    }
+
+    
+}
