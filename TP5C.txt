@@ -20,6 +20,7 @@ namespace AlumnosDBSolucionC
     {   
         private static void Main(string[] args)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             using (var ctx = new AlumnosDBAlfabe())
             {
 
