@@ -3,7 +3,7 @@ using System;
 
 namespace TP2B
 {
-    class TP2B
+    class TPAutosV2
     {
         static void Main(string[] args)
         {
@@ -41,10 +41,13 @@ namespace TP2B
             for (int i = 0; i < motor.Length; i++)
             {
                 c++;
-                int cantidadRuedas = random.Next(8)+1;
+
+                //ESTO LO DEJAMOS POR SI QUEREMOS GENERAR AUTOMATICAMENTE LOS VALORES
+                /*int cantidadRuedas = random.Next(8) + 1;
                 int diametroRuedas = random.Next(60) + 1;
                 int cilindroAuto = random.Next(12) + 1;
                 int cambios2 = random.Next(7) + 1;
+
                 int var = random.Next(2);
                 bool vol;
                 if (var == 1)
@@ -54,21 +57,69 @@ namespace TP2B
                 else
                 {
                     vol = false;
-                }
+                }*/
 
-                Console.WriteLine("\n");
-                Console.WriteLine($"Auto {c}");
-                if (cantidadRuedas < 5)
+                //SI QUIERO GENERAR LOS VALORES AUTOMATICAMENTE DESCOMENTO LO DE ARRIBA Y COMENTO ESTO
+                Console.WriteLine($"\nGenerando auto {c}");
+                Console.WriteLine("\nIngrese la cantidad de ruedas.");
+                int cantidadRuedas = int.Parse(Console.ReadLine());
+                Console.WriteLine("\nIngrese el diametro.");
+                int diametroRuedas = int.Parse(Console.ReadLine());
+                Console.WriteLine("\nIngrese la cantidad de cilindros en el motor.");
+                int cilindroAuto = int.Parse(Console.ReadLine());
+
+                Console.WriteLine("Ingrese si la caja es :\n1 - Automatica\n2 - Manual\n");
+                int var = int.Parse(Console.ReadLine());
+                int cambios2;
+                bool vol;
+                if (var == 1)
                 {
-                    Console.WriteLine(ruedas[i].iniciar(diametroRuedas));
-                    Console.WriteLine(ruedas[i].frenar(diametroRuedas));
-                    Console.WriteLine(motor[i].iniciar(cilindroAuto));
-                    Console.WriteLine(motor[i].frenar(cilindroAuto));
-                    Console.WriteLine(cambios[i].HacerCambios(vol, cambios2));
+                    vol = true;
+                    cambios2 = 1;
+                }
+                else if(var == 2)
+                {
+                    vol = false;
+                    Console.WriteLine("\nIngrese la cantidad de cambios.");
+                    cambios2 = int.Parse(Console.ReadLine());
                 }
                 else
                 {
-                    Console.WriteLine("El auto no puede tener mas de 4 ruedas");
+                    vol = false;
+                    cambios2 = random.Next(7) + 1;
+                    Console.WriteLine("Metio cualquier numero, ahora le asignamos valores automaticamente.");
+                }
+
+
+                //A PARTIR DE ACA SE GENERAN LOS AUTOS, PONGO DELAYS PARA EFECTO COMPUTADORA VIEJA
+                Console.WriteLine($"Ensamblando el automovil... por favor espere.");
+                System.Threading.Thread.Sleep(1000);
+                Console.WriteLine($"Listo!");
+                System.Threading.Thread.Sleep(500);
+                Console.WriteLine("\n");
+                Console.WriteLine($"Detalles del Auto {c}:");
+                System.Threading.Thread.Sleep(500);
+                if (cantidadRuedas <= 5)
+                {
+                    Console.WriteLine("El automovil tiene " +cantidadRuedas + " ruedas. Podemos continuar.");
+                    System.Threading.Thread.Sleep(100);
+                    Console.WriteLine(ruedas[i].iniciar(diametroRuedas));
+                    System.Threading.Thread.Sleep(300);
+                    Console.WriteLine(ruedas[i].frenar(diametroRuedas));
+                    System.Threading.Thread.Sleep(300);
+                    Console.WriteLine(motor[i].iniciar(cilindroAuto));
+                    System.Threading.Thread.Sleep(300);
+                    Console.WriteLine(motor[i].frenar(cilindroAuto));
+                    System.Threading.Thread.Sleep(300);
+                    Console.WriteLine(cambios[i].HacerCambios(vol, cambios2));
+                    Console.WriteLine("\nPara continuar presione tecla cualquiera.");
+                    Console.ReadKey();
+                }
+                else
+                {
+                    Console.WriteLine("El auto tiene "+ cantidadRuedas + " ruedas.\nSegun las reglas del TP, se debe 'validar en el auto pueda tener solo 5 ruedas'" +
+                        "\nPara continuar presione tecla cualquiera.");
+                    Console.ReadKey();
                 }
 
 
@@ -205,13 +256,13 @@ namespace TP2B
 
         String Motor.iniciar(int cilindrada)
         {
-            
-            return "Inicia el motor, todos los " + cilindros + " cilindros aceleran.";
+
+            return "Inicia el motor, todos los " + cilindrada + " cilindros aceleran.";
         }
 
         String Motor.frenar(int cilindrada)
         {
-            return "Frena el motor, todos los " + cilindros + " cilindros desaceleran.";
+            return "Frena el motor, todos los " + cilindrada + " cilindros desaceleran.";
         }
     }
 
@@ -235,13 +286,13 @@ namespace TP2B
 
         String Motor.iniciar(int cilindrada)
         {
-			int cilindros = cilindrada*2;
+            int cilindros = cilindrada * 2;
             return "Inicia el motor, aceleran todos los " + cilindrada + " cilindros del motor.";
         }
 
         String Motor.frenar(int cilindrada)
         {
-			int cilindros = cilindrada*2;
+            int cilindros = cilindrada * 2;
             return "Frenamos el motor de " + cilindrada + " cilindros.";
         }
     }
