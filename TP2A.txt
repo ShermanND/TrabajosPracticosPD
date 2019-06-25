@@ -10,19 +10,26 @@ namespace TP2A
     {
         static void Main(string[] args)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("TP1A, Figuras Geometricas\n");
-            var triangulos = new triangulos();            
+            var triangulos = new triangulos();
+            System.Threading.Thread.Sleep(500);
             Console.WriteLine("El area del triangulo es " + triangulos.calcularArea());
+            System.Threading.Thread.Sleep(300);
             Console.WriteLine("El perimetro del triangulo es " + triangulos.calcularPerimetro());
             Console.WriteLine("Presione tecla cualquiera para continuar con los circulos.");
             Console.ReadKey();
             var circulos = new circulos();
+            System.Threading.Thread.Sleep(500);
             Console.WriteLine("\nEl area del circulo es " + circulos.calcularArea());
+            System.Threading.Thread.Sleep(300);
             Console.WriteLine("El perimetro del circulo es " + circulos.calcularPerimetro());
             Console.WriteLine("Presione tecla cualquiera para continuar con los cuadrilateros.");
             Console.ReadKey();
             var rectangulos = new rectangulos();
+            System.Threading.Thread.Sleep(500);
             Console.WriteLine("\nEl area del cuadrado es " + rectangulos.calcularArea());
+            System.Threading.Thread.Sleep(300);
             Console.WriteLine("El perimetro del rectangulo es " + rectangulos.calcularPerimetro());
             Console.WriteLine("" + rectangulos.calcularPerimetro());
             Console.WriteLine("Presione tecla cualquiera para cerrar.");
