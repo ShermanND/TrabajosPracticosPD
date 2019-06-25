@@ -7,7 +7,7 @@ namespace TP2B
     {
         static void Main(string[] args)
         {
-
+            Console.ForegroundColor = ConsoleColor.Green;
             Random random = new Random();
 
             Ruedas[] ruedas = new Ruedas[4];
@@ -77,7 +77,7 @@ namespace TP2B
                     vol = true;
                     cambios2 = 1;
                 }
-                else if(var == 2)
+                else if (var == 2)
                 {
                     vol = false;
                     Console.WriteLine("\nIngrese la cantidad de cambios.");
@@ -101,7 +101,7 @@ namespace TP2B
                 System.Threading.Thread.Sleep(500);
                 if (cantidadRuedas <= 5)
                 {
-                    Console.WriteLine("El automovil tiene " +cantidadRuedas + " ruedas. Podemos continuar.");
+                    Console.WriteLine("El automovil tiene " + cantidadRuedas + " ruedas. Podemos continuar.");
                     System.Threading.Thread.Sleep(100);
                     Console.WriteLine(ruedas[i].iniciar(diametroRuedas));
                     System.Threading.Thread.Sleep(300);
@@ -117,7 +117,7 @@ namespace TP2B
                 }
                 else
                 {
-                    Console.WriteLine("El auto tiene "+ cantidadRuedas + " ruedas.\nSegun las reglas del TP, se debe 'validar en el auto pueda tener solo 5 ruedas'" +
+                    Console.WriteLine("El auto tiene " + cantidadRuedas + " ruedas.\nSegun las reglas del TP, se debe 'validar en el auto pueda tener solo 5 ruedas'" +
                         "\nPara continuar presione tecla cualquiera.");
                     Console.ReadKey();
                 }
