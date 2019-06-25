@@ -20,6 +20,7 @@ namespace AlumnosDBSolucionE
     {   
         private static void Main(string[] args)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             int cantidad = 0;
             int sumanotas = 0;
             double Prom = 0;
