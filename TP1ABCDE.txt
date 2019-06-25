@@ -14,25 +14,28 @@ namespace Ejercicio1
             Solucion1B();
             Solucion1C();
             Solucion1D();
-            Solucion1E();                                 
+            Solucion1E();
         }
 
         public static void Solucion1A()
         {
             Console.WriteLine("\nSolucion TP1 - A");
+            System.Threading.Thread.Sleep(500);
             Console.WriteLine("\nIngrese el nombre del alumno");
             String nombre = Console.ReadLine();
             Console.WriteLine("Ingrese el apellido del alumno");
             String apellido = Console.ReadLine();
+            System.Threading.Thread.Sleep(400);
             Console.WriteLine($"El nombre completo del alumno es {nombre} {apellido}");
             Console.WriteLine("\n\n");
-            Console.WriteLine($"Presione una tecla para continuar\n");
+            Console.WriteLine("Presione una tecla para continuar\n");
             Console.ReadKey();
         }
 
         public static void Solucion1B()
         {
             Console.WriteLine("\nSolucion TP1 - B");
+            System.Threading.Thread.Sleep(500);
             Console.WriteLine("\nIngrese el nombre del alumno");
             String nombre = Console.ReadLine();
             Console.WriteLine("Ahora ingrese la edad del alumno");
@@ -40,14 +43,16 @@ namespace Ejercicio1
 
             if (edad >= 18)
             {
-                Console.WriteLine("El alumno "+nombre +" es mayor de edad");
+                System.Threading.Thread.Sleep(400);
+                Console.WriteLine($"El alumno {nombre} es mayor de edad");
             }
             else
             {
-                Console.WriteLine("El alumno " + nombre + " NO es mayor de edad");
+                System.Threading.Thread.Sleep(400);
+                Console.WriteLine($"El alumno {nombre} NO es mayor de edad");
             }
             //Console.WriteLine("\n\n");
-            Console.WriteLine($"Presione una tecla para continuar\n");
+            Console.WriteLine("Presione una tecla para continuar\n");
             Console.ReadKey();
         }
 
@@ -57,11 +62,12 @@ namespace Ejercicio1
             int valor1 = 1;
             int valorfinal = 0;
             int i = 0;
-
+            int cont = 0;
             while (valor1 != 0)
             {
+                cont++;                
                 Console.WriteLine("\nSolucion TP1 - C");
-                Console.WriteLine("Pasame el valor! O ingresa CERO para terminar");
+                Console.WriteLine($"Pasame el valor {cont}! O ingresa CERO para terminar");
                 valor1 = int.Parse(Console.ReadLine());
                 if (valor1 != 0)
                     lista.Add(valor1);
@@ -69,8 +75,9 @@ namespace Ejercicio1
                 valorfinal = resultado;
                 if (valor1 == 0)
                 {
-                    Console.WriteLine("El resultado es: " + valorfinal);
-                    Console.WriteLine($"Presione una tecla para continuar\n");
+                    System.Threading.Thread.Sleep(400);
+                    Console.WriteLine($"El resultado es {valorfinal}");
+                    Console.WriteLine("Presione una tecla para continuar\n");
                     Console.ReadKey();
                 }
             }
@@ -89,18 +96,20 @@ namespace Ejercicio1
             {
                 if (num1 % k == 0 && num2 % k == 0)
                 {
-                    Console.WriteLine($"El maximo divisor comun es: {k}");
+                    System.Threading.Thread.Sleep(400);
+                    Console.WriteLine($"\nEl maximo divisor comun es: {k}");
                     k = 0;
                 }
             }
             Console.WriteLine("\n\n");
-            Console.WriteLine($"Presione una tecla para continuar\n");
+            Console.WriteLine("Presione una tecla para continuar\n");
             Console.ReadKey();
         }
 
         public static void Solucion1E()
         {
             Console.WriteLine("\nSolucion TP1 - E");
+
             int c = 0;
             int tot = 0;
             Console.WriteLine("\nIngrese numero\n(Introduzca 0 para terminar el programa)");
@@ -114,9 +123,10 @@ namespace Ejercicio1
             }
 
             double promedio = tot / c;
+            System.Threading.Thread.Sleep(400);
             Console.WriteLine($"El promedio de los numeros ingresados es :{promedio}");
             Console.WriteLine("\n\n");
-            Console.WriteLine($"Presione una tecla para salir\n");
+            Console.WriteLine("Presione una tecla para salir\n");
             Console.ReadKey();
         }
 
